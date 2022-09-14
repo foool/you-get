@@ -131,9 +131,11 @@ class Iqiyi(VideoExtractor):
             html = get_html(self.url)
             tvid = r1(r'#curid=(.+)_', self.url) or \
                    r1(r'tvid=([^&]+)', self.url) or \
+                   r1(r'"tvid":(\w+)', html) or \
                    r1(r'data-player-tvid="([^"]+)"', html) or r1(r'tv(?:i|I)d=(\w+?)\&', html) or r1(r'param\[\'tvid\'\]\s*=\s*"(.+?)"', html)
             videoid = r1(r'#curid=.+_(.*)$', self.url) or \
                       r1(r'vid=([^&]+)', self.url) or \
+                      r1(r'"vid":"(\w+)"', html) or \
                       r1(r'data-player-videoid="([^"]+)"', html) or r1(r'vid=(\w+?)\&', html) or r1(r'param\[\'vid\'\]\s*=\s*"(.+?)"', html)
             self.vid = (tvid, videoid)
             info_u = 'http://pcw-api.iqiyi.com/video/video/playervideoinfo?tvid=' + tvid
